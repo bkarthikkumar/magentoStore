@@ -24,6 +24,8 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<!-- Below code is for getting current url -->
+
 <?php
 $urlRequest = Mage::app()->getFrontController()->getRequest();
 $urlPart = $urlRequest->getServer('ORIG_PATH_INFO');
@@ -34,16 +36,26 @@ if(is_null($urlPart))
 $urlPart = substr($urlPart, 1 );
 $currentUrl = $this->getUrl($urlPart);
 ?>
+<!-- Above code is for getting current url -->
 <div class="footer-container">
+<div class="f-left">
+<div class="LI-profile-badge" data-version="v1" data-size="large" data-locale="en_US" data-type="horizontal" data-theme="light" data-vanity="bkarthikkumar"><a class="LI-simple-link" href='https://in.linkedin.com/in/bkarthikkumar?trk=profile-badge'></a></div>
+</div>
+<div class="g-person" data-width="280" data-href="//plus.google.com/113170205984604794845" data-showcoverphoto="false" data-rel="author"></div>
     <div class="footer">
         <?php echo $this->getChildHtml('bottomContainer') ?>
 
         <div class="footer-links">
         
-  <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footerLinks')->toHtml() ?>
-  
+          <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footerLinks')->toHtml() ?>
+  <div class="f-right" style="margin-top: -203px;">
         <div class="payment">
-        <img src="<?php echo $this->getSkinUrl('images/creditcards.gif'); ?>" alt="We Accept all Major Credit Cards" />
+        <img src="<?php echo $this->getSkinUrl('images/creditcards.gif'); ?>" alt="We Accept all Major Credit Cards" style="margin-top: -89px;" />
+         
+        </div>
+        <?php echo $this->getChildHtml('cms_footer_links') ?>
+            <?php echo $this->getChildHtml('footer_links') ?>
+            <?php //echo $this->getChildHtml('newsletter') ?>
         </div>
             
         
@@ -66,3 +78,7 @@ $currentUrl = $this->getUrl($urlPart);
             <div style="clear:both;"></div>
             </div>
   
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+

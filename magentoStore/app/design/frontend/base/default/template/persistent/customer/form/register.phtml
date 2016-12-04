@@ -173,6 +173,7 @@
             </ul>
             <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
         </div>
+        <div class="g-recaptcha" data-sitekey="6LfEzg0UAAAAAEJwBePjlhPWNVtlGSlABAuky8XW" ></div>
         <div class="buttons-set">
             <p class="required"><?php echo $this->__('* Required Fields') ?></p>
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
@@ -182,6 +183,8 @@
             <input name="context" type="hidden" value="checkout" />
         <?php endif; ?>
     </form>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script type="text/javascript">
     //<![CDATA[
         var dataForm = new VarienForm('form-validate', true);

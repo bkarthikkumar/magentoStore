@@ -1,0 +1,74 @@
+<?php $_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
+<?php if($_menu): ?>
+
+<script type="text/javascript">
+
+
+jQuery(document).ready(function() {
+          jQuery('.toggle').click(function() {
+               if (jQuery('.submenu').is(":hidden"))
+               {
+                    jQuery('.submenu').slideDown("fast");
+               } else {
+                    jQuery('.submenu').slideUp("fast");
+               }
+               return false;
+          });
+		  
+});
+
+
+</script>
+<div id="menu" class="hidden-desktop">
+
+      <!--div class="menutop clearfix">
+        <a class="toggle">Categories <span></span></a> 
+      </div-->
+		<ul id="left-nav" class="submenu" style="display:none;">
+			<?php foreach ($this->getStoreCategories() as $_category): ?>
+				<?php if ($_category->getIsActive()): ?>
+					<?php $isactive		= $this->isCategoryActive($_category); ?>
+
+					<?php $hasChildren	= $_category->hasChildren(); ?>
+					<li class="category <?php if($isactive) echo 'active'; ?>"> 
+						<a href="<?php echo !$hasChildren ? $this->getCategoryUrl($_category) : $this->getCategoryUrl($_category); ?>" >
+							<?php echo $_category->getName();?>
+						</a>
+						<?php if($hasChildren): ?><span class="arrow" lang="<?php echo $_category->getId();?>"><i></i></span><?php endif ?>
+					</li>
+					<?php if($hasChildren): ?>
+					<li>
+						<ul class="subcategory_<?php echo $_category->getId();?> subcategory" style="display:<?php echo $isactive? 'block' : 'none'; ?>;">
+							<?php foreach (Mage::getModel('catalog/category')->load($_category->getId())->getChildrenCategories() as $childCategory):?>
+								<?php $isactive			= $this->isCategoryActive($childCategory); ?>
+								<?php $hasmoreChildren	= $childCategory->hasChildren(); ?>
+								<li class="category cate <?php if($isactive) echo 'active'; ?>" lang="<?php echo $childCategory->getId(); ?>">
+									<a href="<?php echo !$hasmoreChildren ? $childCategory->getUrl() : $childCategory->getUrl(); ?>" >
+										<?php echo $childCategory->getName(); ?>
+									</a>
+									<?php if($hasmoreChildren) echo ' <span class="arrow" lang="'.$childCategory->getId().'"><i></i></span>'; ?>
+								</li>
+								<?php if($hasmoreChildren): ?>
+								<li>								
+									<ul class="subcategory_<?php echo $childCategory->getId(); ?> subcategory" style="display:<?php echo $isactive? 'block' : 'none'; ?>;">
+										<?php foreach (Mage::getModel('catalog/category')->load($childCategory->getId())->getChildrenCategories() as $_childCategory):?>
+											<?php $isactive	= $this->isCategoryActive($_childCategory);?>
+											<li class="category cat <?php if($isactive) echo 'active'; ?>">
+												<a href="<?php echo $_childCategory->getUrl(); ?>">
+													<?php echo $_childCategory->getName(); ?>
+												</a>
+											</li>
+										<?php endforeach; ?>
+									</ul>
+								</li>
+								<?php endif ?>
+							<?php endforeach;?>
+						</ul>
+					</li>
+					<?php endif ?>
+				<?php endif ?>
+			<?php endforeach ?>
+		</ul>
+</div>
+
+<?php endif ?>
